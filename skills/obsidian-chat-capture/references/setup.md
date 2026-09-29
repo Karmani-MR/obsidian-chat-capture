@@ -1,0 +1,73 @@
+# Connect an AI app to the vault
+
+Read this when the `obsidian` MCP tools are missing or the user asks how to connect an app. Walk the user through only the section for their app. Never ask the user to paste the API key into the chat. They should paste it into the config file or settings screen themselves.
+
+## 1. Vault side (once)
+
+1. Obsidian desktop: **Settings → Community plugins → Browse**, then install and enable **Local REST API with MCP** (by Adam Coddington, v5 or newer).
+2. **Settings → Local REST API** shows the API key and the endpoints:
+   - HTTPS (default): `https://127.0.0.1:27124/mcp/`, which uses a self-signed certificate
+   - HTTP (optional): `http://127.0.0.1:27123/mcp/`, which is off until **Enable HTTP server** is turned on. It only listens on this computer.
+3. Check it works: `curl -sk https://127.0.0.1:27124/` should return `"status": "OK"`.
+
+Obsidian must be open for the server to answer.
+
+## 2. App side
+
+Replace `<API_KEY>` yourself in each config file. Restart the app afterward.
+
+**Claude Code**
+```sh
+claude mcp add --scope user --transport http obsidian https://127.0.0.1:27124/mcp/ \
+  --header "Authorization: Bearer <API_KEY>"
+```
+Install the skill: copy `skills/obsidian-chat-capture/` to `~/.claude/skills/`.
+
+**Claude Desktop** (needs Node.js). Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (Windows: `%APPDATA%\Claude\claude_desktop_config.json`):
+```json
+{ "mcpServers": { "obsidian": {
+  "command": "npx",
+  "args": ["mcp-remote@latest", "https://127.0.0.1:27124/mcp/", "--header", "Authorization: Bearer <API_KEY>"],
+  "env": { "NODE_TLS_REJECT_UNAUTHORIZED": "0" }
+} } }
+```
+The `env` line accepts the plugin's self-signed certificate. Alternatively, use the HTTP URL. Install the skill: zip the `obsidian-chat-capture` folder and upload it under **Customize → Skills**.
+
+**Cursor**. Edit `~/.cursor/mcp.json`:
+```json
+{ "mcpServers": { "obsidian": {
+  "url": "https://127.0.0.1:27124/mcp/",
+  "headers": { "Authorization": "Bearer <API_KEY>" }
+} } }
+```
+
+**Perplexity (Mac app)**. Install the **PerplexityXPC** helper when the app prompts. Then go to **Settings → Connectors → Add Connector**, open the **Simple** tab, name the server `obsidian`, and enter this command. It needs Node.js and the HTTP server enabled:
+```sh
+npx -y mcp-remote@latest http://127.0.0.1:27123/mcp/ --header "Authorization: Bearer <API_KEY>"
+```
+In Perplexity Computer, upload the skill zip under Skills.
+
+**OpenAI Codex CLI**. Add this to `~/.codex/config.toml`, then copy the skill folder to `~/.codex/skills/`:
+```toml
+[mcp_servers.obsidian]
+command = "npx"
+args = ["-y", "mcp-remote@latest", "https://127.0.0.1:27124/mcp/", "--header", "Authorization: Bearer <API_KEY>"]
+env = { NODE_TLS_REJECT_UNAUTHORIZED = "0" }
+```
+
+**ChatGPT**. ChatGPT only connects to remote MCP servers. Exposing a local vault requires OpenAI's Secure MCP Tunnel or your own HTTPS tunnel. Only do this if you accept the risk of exposing your notes. The simpler route: paste the "Never save" and note-format rules into custom instructions, and let ChatGPT hand you notes to paste in.
+
+## 3. Turn on automatic capture
+
+Add this line to the app's custom instructions (Claude: Profile → Preferences; ChatGPT: Personalization; Perplexity: Profile → Introduce yourself):
+
+> At the end of any substantive chat (decisions, plans, research or tasks), use the obsidian-chat-capture skill to save a short note to my Obsidian vault and tell me the path.
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| Connection refused | Open Obsidian. Make sure the plugin is enabled. |
+| 401 | Wrong key. Copy it again from Settings → Local REST API. |
+| Certificate error | Use the `NODE_TLS_REJECT_UNAUTHORIZED` env line, trust `https://127.0.0.1:27124/obsidian-local-rest-api.crt`, or switch to the HTTP URL. |
+| Tools appear but writes fail | Check the path is relative to the vault root and ends in `.md`. |
