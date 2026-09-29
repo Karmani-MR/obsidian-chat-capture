@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Needs Obsidian desktop with the 'Local REST API with MCP' plugin (v5+) and an MCP client connected to it, or Python 3 for the fallback script. Works in any Agent Skills host."
 metadata:
   author: Marc Rainone
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Obsidian Chat Capture
@@ -21,8 +21,8 @@ Turn the useful part of a conversation into one short, linked note in the user's
 ## Pick the write path
 
 1. **MCP tools available** (`vault_list`, `vault_read`, `vault_write`, `vault_append`, `search_simple` from the `obsidian` server): use them.
-2. **Shell available but no MCP**: run `scripts/save_note.py` (below).
-3. **Neither**: render the finished note in a Markdown code block with its target path so the user can paste it.
+2. **Shell on the same computer as Obsidian, but no MCP**: run `scripts/save_note.py` (below). A cloud code sandbox is not that computer.
+3. **Neither** (for example ChatGPT on the web, or a phone app): cloud-hosted apps cannot reach `localhost`, so do not ask for a URL, API key or tunnel, and do not say the save failed. Put the target path on one line, then the finished note in one Markdown code block, and tell the user to paste it into a new note at that path.
 4. **Tools missing, or the user asks how to connect an app**: read `references/setup.md`.
 
 ## Save a note

@@ -55,7 +55,7 @@ args = ["-y", "mcp-remote@latest", "https://127.0.0.1:27124/mcp/", "--header", "
 env = { NODE_TLS_REJECT_UNAUTHORIZED = "0" }
 ```
 
-**ChatGPT**. ChatGPT only connects to remote MCP servers. Exposing a local vault requires OpenAI's Secure MCP Tunnel or your own HTTPS tunnel. Only do this if you accept the risk of exposing your notes. The simpler route: paste the "Never save" and note-format rules into custom instructions, and let ChatGPT hand you notes to paste in.
+**ChatGPT**. ChatGPT runs in the cloud and cannot reach a vault on your computer. Custom MCP connectors need developer mode, which OpenAI offers on Pro (read-only) and on Business, Enterprise and Edu (read and write), not on Plus. Even then, the server must be reachable over the internet with OAuth, which means a tunnel plus an OAuth layer in front of the plugin. Only do that if you accept the risk of exposing your notes. On Plus, upload the skill under **Plugins → Skills → Add → Upload from your computer**. It will hand you paste-ready notes instead of saving directly.
 
 ## 3. Turn on automatic capture
 
