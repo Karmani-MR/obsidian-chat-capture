@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Needs Obsidian desktop with the 'Local REST API with MCP' plugin (v5+) and an MCP client connected to it, or Python 3 for the fallback script. Works in any Agent Skills host."
 metadata:
   author: Marc Rainone
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # Obsidian Chat Capture
@@ -22,7 +22,7 @@ Turn the useful part of a conversation into one short, linked note in the user's
 
 1. **MCP tools available** (`vault_list`, `vault_read`, `vault_write`, `vault_append`, `search_simple` from the `obsidian` server): use them.
 2. **Shell on the same computer as Obsidian, but no MCP**: run `scripts/save_note.py` (below). A cloud code sandbox is not that computer.
-3. **Neither** (for example ChatGPT on the web, or a phone app): cloud-hosted apps cannot reach `localhost`, so do not ask for a URL, API key or tunnel, and do not say the save failed. Put the target path on one line, then the finished note in one Markdown code block, and tell the user to paste it into a new note at that path.
+3. **Neither** (for example ChatGPT on the web, or a phone app): cloud-hosted apps cannot reach `localhost`, so do not ask for a URL, API key or tunnel, and do not say the save failed. Output one Markdown code block whose first line is `obsidian-capture: <target path>`, followed by the finished note. Tell the user to click **Copy**: if they run `scripts/clip_capture.py` on their Mac, the note saves itself; otherwise they paste it into a new note at that path.
 4. **Tools missing, or the user asks how to connect an app**: read `references/setup.md`.
 
 ## Save a note
@@ -51,3 +51,5 @@ python3 scripts/save_note.py "11 AI Chats/2026-09-29 - Topic.md" < note.md
 ```
 
 It creates the note, or appends it under `## Update HH:MM` if the note already exists. Add `--dry-run` to preview.
+
+`scripts/clip_capture.py` is the Mac-side watcher for step 3: it saves any copied block that starts with `obsidian-capture:` into the capture folder, never overwrites, and refuses text that looks like a key or ID number. Setup is in `references/setup.md`.

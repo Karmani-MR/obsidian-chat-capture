@@ -32,7 +32,7 @@ Each saved note gets properties (`type: ai-chat`, `source`, `created`, `related`
 
 ## Without MCP
 
-`scripts/save_note.py` (Python 3, standard library only) does the same create-or-append through the REST API:
+`scripts/save_note.py` (Python 3, standard library only) does the same create-or-append through the REST API. For cloud apps like ChatGPT, `scripts/clip_capture.py` saves any copied note block that starts with `obsidian-capture:` (see setup.md, section 4):
 
 ```bash
 export OBSIDIAN_API_KEY=...        # from Settings > Local REST API

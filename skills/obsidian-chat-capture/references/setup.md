@@ -57,11 +57,41 @@ env = { NODE_TLS_REJECT_UNAUTHORIZED = "0" }
 
 **ChatGPT**. ChatGPT runs in the cloud and cannot reach a vault on your computer. Custom MCP connectors need developer mode, which OpenAI offers on Pro (read-only) and on Business, Enterprise and Edu (read and write), not on Plus. Even then, the server must be reachable over the internet with OAuth, which means a tunnel plus an OAuth layer in front of the plugin. Only do that if you accept the risk of exposing your notes. On Plus, upload the skill under **Plugins → Skills → Add → Upload from your computer**. It will hand you paste-ready notes instead of saving directly.
 
-## 3. Turn on automatic capture
+## 3. Turn on automatic capture (apps with vault access)
 
 Add this line to the app's custom instructions (Claude: Profile → Preferences; ChatGPT: Personalization; Perplexity: Profile → Introduce yourself):
 
 > At the end of any substantive chat (decisions, plans, research or tasks), use the obsidian-chat-capture skill to save a short note to my Obsidian vault and tell me the path.
+
+## 4. Automatic capture from cloud apps (macOS)
+
+Cloud apps such as ChatGPT can't reach the vault, so the skill ends with a copy-ready block whose first line is `obsidian-capture: <path>`. `scripts/clip_capture.py` watches the clipboard and saves those blocks into the vault. Click **Copy** on the block and the note appears, with a macOS notification. It only acts on the marker line, ignores everything else on the clipboard, never logs clipboard contents, and never overwrites a note. Copies from an iPhone reach it through Universal Clipboard.
+
+Install it as a login item (replace the vault path):
+```sh
+mkdir -p ~/Library/Application\ Support/obsidian-clip-capture
+cp scripts/clip_capture.py ~/Library/Application\ Support/obsidian-clip-capture/
+cat > ~/Library/LaunchAgents/com.obsidian-chat-capture.clipboard.plist <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.obsidian-chat-capture.clipboard</string>
+  <key>ProgramArguments</key><array>
+    <string>/usr/bin/python3</string>
+    <string>/Users/YOU/Library/Application Support/obsidian-clip-capture/clip_capture.py</string>
+    <string>--vault</string><string>/Users/YOU/Documents/Obsidian Vault</string>
+  </array>
+  <key>RunAtLoad</key><true/><key>KeepAlive</key><true/>
+  <key>ProcessType</key><string>Background</string>
+</dict></plist>
+PLIST
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.obsidian-chat-capture.clipboard.plist
+```
+Stop it with `launchctl bootout gui/$(id -u)/com.obsidian-chat-capture.clipboard`. The activity log is `~/Library/Logs/obsidian-clip-capture.log`.
+
+For fully automatic capture in ChatGPT, add this to **Settings → Personalization → Custom instructions**:
+
+> At the end of any substantive chat (decisions, plans, research or tasks), use the obsidian chat capture skill to give me a copy-ready note block.
 
 ## Troubleshooting
 
