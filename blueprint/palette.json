@@ -1,0 +1,70 @@
+{
+  "folders": [
+    {
+      "path": "12 School/Past Courses",
+      "color": "#7F7F7F"
+    },
+    {
+      "path": "00 Home",
+      "color": "#E6B422"
+    },
+    {
+      "path": "01 Fleeting",
+      "color": "#9AA0A6"
+    },
+    {
+      "path": "02 Literature",
+      "color": "#4A90E2"
+    },
+    {
+      "path": "03 Permanent",
+      "color": "#34A853"
+    },
+    {
+      "path": "04 Maps",
+      "color": "#8E6CEF"
+    },
+    {
+      "path": "05 Projects",
+      "color": "#F5A623"
+    },
+    {
+      "path": "06 Daily",
+      "color": "#20B2AA"
+    },
+    {
+      "path": "07 Weekly",
+      "color": "#20B2AA"
+    },
+    {
+      "path": "08 Archive",
+      "color": "#A0522D"
+    },
+    {
+      "path": "09 Templates",
+      "color": "#708090"
+    },
+    {
+      "path": "10 Attachments",
+      "color": "#708090"
+    },
+    {
+      "path": "11 AI Chats",
+      "color": "#E91E8C"
+    },
+    {
+      "path": "13 Calendar",
+      "color": "#00BCD4"
+    }
+  ],
+  "course_palette": [
+    "#3F51B5",
+    "#C2185B",
+    "#FFB300",
+    "#2E7D32",
+    "#FF7F50",
+    "#00897B",
+    "#6D4C41",
+    "#5E35B1"
+  ]
+}

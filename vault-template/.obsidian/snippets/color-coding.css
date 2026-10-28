@@ -1,0 +1,33 @@
+/* color-coding: folder colors in the file explorer. Course blocks are added between the COURSES markers by new_course.py. */
+.nav-folder-title[data-path="12 School/Past Courses"] { color: #7F7F7F; font-weight: 600; }
+.nav-file-title[data-path^="12 School/Past Courses/"] { border-left: 3px solid #7F7F7F; }
+.nav-folder-title[data-path="00 Home"] { color: #E6B422; font-weight: 600; }
+.nav-file-title[data-path^="00 Home/"] { border-left: 3px solid #E6B422; }
+.nav-folder-title[data-path="01 Fleeting"] { color: #9AA0A6; font-weight: 600; }
+.nav-file-title[data-path^="01 Fleeting/"] { border-left: 3px solid #9AA0A6; }
+.nav-folder-title[data-path="02 Literature"] { color: #4A90E2; font-weight: 600; }
+.nav-file-title[data-path^="02 Literature/"] { border-left: 3px solid #4A90E2; }
+.nav-folder-title[data-path="03 Permanent"] { color: #34A853; font-weight: 600; }
+.nav-file-title[data-path^="03 Permanent/"] { border-left: 3px solid #34A853; }
+.nav-folder-title[data-path="04 Maps"] { color: #8E6CEF; font-weight: 600; }
+.nav-file-title[data-path^="04 Maps/"] { border-left: 3px solid #8E6CEF; }
+.nav-folder-title[data-path="05 Projects"] { color: #F5A623; font-weight: 600; }
+.nav-file-title[data-path^="05 Projects/"] { border-left: 3px solid #F5A623; }
+.nav-folder-title[data-path="06 Daily"] { color: #20B2AA; font-weight: 600; }
+.nav-file-title[data-path^="06 Daily/"] { border-left: 3px solid #20B2AA; }
+.nav-folder-title[data-path="07 Weekly"] { color: #20B2AA; font-weight: 600; }
+.nav-file-title[data-path^="07 Weekly/"] { border-left: 3px solid #20B2AA; }
+.nav-folder-title[data-path="08 Archive"] { color: #A0522D; font-weight: 600; }
+.nav-file-title[data-path^="08 Archive/"] { border-left: 3px solid #A0522D; }
+.nav-folder-title[data-path="09 Templates"] { color: #708090; font-weight: 600; }
+.nav-file-title[data-path^="09 Templates/"] { border-left: 3px solid #708090; }
+.nav-folder-title[data-path="10 Attachments"] { color: #708090; font-weight: 600; }
+.nav-file-title[data-path^="10 Attachments/"] { border-left: 3px solid #708090; }
+.nav-folder-title[data-path="11 AI Chats"] { color: #E91E8C; font-weight: 600; }
+.nav-file-title[data-path^="11 AI Chats/"] { border-left: 3px solid #E91E8C; }
+.nav-folder-title[data-path="13 Calendar"] { color: #00BCD4; font-weight: 600; }
+.nav-file-title[data-path^="13 Calendar/"] { border-left: 3px solid #00BCD4; }
+/* COURSES:START */
+/* COURSES:END */
+.metadata-container:has(.metadata-property[data-property-key="cssclasses"]) { }
+.wide .markdown-preview-sizer, .wide .cm-sizer { max-width: 100% !important; }

@@ -1,0 +1,19 @@
+# Whitelist: track text, ignore binaries, workspace state and plugin code
+/*
+!/*/
+!*.md
+!*.base
+!*.canvas
+!*.css
+!*.json
+!*.py
+!.gitignore
+.obsidian/workspace*.json
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/styles.css
+.obsidian/plugins/obsidian-local-rest-api/
+.smart-env/
+*.pdf
+*.pptx
+*.docx
+*.xlsx

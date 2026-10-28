@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "type": "file",
+      "ctime": 1790000000000,
+      "path": "00 Home/Home.md",
+      "title": "Home"
+    },
+    {
+      "type": "file",
+      "ctime": 1790000000001,
+      "path": "00 Home/Weekly Calendar.md",
+      "title": "Weekly Calendar"
+    },
+    {
+      "type": "file",
+      "ctime": 1790000000002,
+      "path": "00 Home/Monthly Calendar.md",
+      "title": "Monthly Calendar"
+    },
+    {
+      "type": "file",
+      "ctime": 1790000000003,
+      "path": "00 Home/Top of Mind.md",
+      "title": "Top of Mind"
+    },
+    {
+      "type": "folder",
+      "ctime": 1790000000004,
+      "path": "01 Fleeting",
+      "title": "Inbox"
+    }
+  ]
+}
