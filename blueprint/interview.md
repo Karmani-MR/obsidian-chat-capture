@@ -15,7 +15,8 @@ Ask a few questions at a time, in plain language. Skip what the user already tol
 6. Are you a student right now? → `student`
 7. What is this term called (e.g. "Fall 2026")? → `term`
 8. For each course: code, name, meeting days (Mon–Sun), start and end time (24-hour `HH:MM`), room, instructor, first and last day of class. → `courses[]`. Pasting a registration table is fine; parse it.
-9. Any course color preferences? Otherwise colors come from `palette.json`. → `courses[].color`
+9. Any course color preferences? Otherwise colors come from `palette.json` in order (Indigo, Magenta, Amber, Emerald, Coral…). → `courses[].color` and `color_name`
+9b. School breaks, last day of classes and exam dates? Add them after the build with `add_event.py --kind break --no-class`.
 
 ## Destination
 10. Where should the vault go? Default `~/Documents/<Name>'s Vault`. Must be a new or empty folder.

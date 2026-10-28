@@ -1,6 +1,6 @@
 # Obsidian AI Vault
 
-A blueprint your AI can use to build you an organized Obsidian vault, modeled on a real student vault that's used every day. It includes numbered folders, a Home-centered graph with color coding, weekly and monthly calendars, course folders, and an operating manual that tells every AI app how to read and write your notes safely.
+A blueprint your AI can use to build you an organized Obsidian vault. It's taken from a real student vault that's used every day: the template holds that vault's actual calendar code, graph plugin, settings, templates and AI operating manual, with the personal content removed. You get numbered folders, a circular graph centered on Home with one colored starburst per area and per course, weekly and monthly calendars, a standard folder for every course, and rules that tell every AI app how to read and write your notes safely.
 
 It also includes [`obsidian-chat-capture`](skills/obsidian-chat-capture/), a skill that saves the useful parts of AI chats into the vault.
 
@@ -21,20 +21,21 @@ bash scripts/install-plugins.sh "~/Documents/My Vault"
 python3 scripts/verify_vault.py "~/Documents/My Vault"
 ```
 
-Then open the folder in Obsidian, click "Trust author and enable plugins", and turn on Templater → "Trigger Templater on new file creation". You'll need Python 3 (standard library only) and Obsidian 1.9 or newer for Bases.
+Then open the folder in Obsidian, click "Trust author and enable plugins", and turn on Templater → "Trigger Templater on new file creation". You'll need Python 3 (standard library only) and Obsidian 1.9 or newer.
 
 ## What you get
 
 | | |
 |---|---|
 | **Folders** | `00 Home` · `01 Fleeting` · `02 Literature` · `03 Permanent` · `04 Maps` · `05 Projects` · `06 Daily` · `07 Weekly` · `08 Archive` · `09 Templates` · `10 Attachments` · `11 AI Chats` · `12 School` · `13 Calendar` |
-| **Home** | A dashboard linking every map, the calendars, your inbox, active projects and AI notes waiting for review |
-| **Calendars** | Weekly view of classes and events; monthly day-by-day grid of everything due, built from `[due:: date]` tasks anywhere in the vault |
-| **School** | One folder per course with eight numbered subfolders, a hub with schedule and deadlines, a Materials note linking every file, a Prep note, and its own color. Finished courses move to Past Courses and turn gray |
-| **Graph** | Home in the center, each hub and each course forming its own colored starburst |
-| **AI layer** | `AGENTS.md` (read order, where AI may write, naming, task format), AI Context, Top of Mind, an append-only Agent Memory, and nine skill notes such as Today's Focus, Weekly Review, Calendar Capture and Add Course |
-| **Safety net** | AI writes are append-only outside a few scratch areas, AI-made notes are tagged `ai-assisted` until you review them, and Obsidian Git takes local snapshots every 30 minutes |
-| **Templates** | Daily, Weekly, Fleeting, Literature, Permanent, Map, Project, AI Chat, Event, Lecture, Course Hub/Materials/Prep |
+| **Home** | Dashboard with every area, active courses, deadlines for the next 14 days, inbox, projects and recent AI chats |
+| **Weekly Calendar** | A time grid of classes (repeating weekly, with breaks skipped), calls, meetings and exams, with an Add event form |
+| **To-Do Calendar** | A month grid of every dated task (assignments, exams, readings, to-dos), with filters and check-off in place |
+| **Courses** | Each course gets a course map, a folder with eight numbered subfolders, a Materials note linking every file, a class note and a prep note, all in one color. Finished courses move to Past Courses and turn gray |
+| **Graph** | The bundled Graph Groups plugin pins Home in the center and lays out each area and course as its own colored starburst |
+| **AI layer** | `AGENTS.md` (read order, permissions table, how AI work is marked, conventions), AI Context, USER, Top of Mind, an append-only Agent Memory, and seven skills (Todays Focus, Weekly Review, Process Notes, Ingest, Vault Health, Write Like Me, Calendar Update), also available as Claude Code slash commands |
+| **Calendar tool** | `add_event.py`, so any AI with a shell can add, move, cancel or list events and log each change |
+| **Safety net** | Agents append instead of overwriting, anything they write is tagged `ai-assisted` until you review it, and Obsidian Git takes local snapshots every 30 minutes |
 
 The full design is in [`blueprint/VAULT-SPEC.md`](blueprint/VAULT-SPEC.md).
 
@@ -46,9 +47,9 @@ blueprint/                 spec, interview questions, colors, how to personalize
 vault-template/            the vault itself, with {{PLACEHOLDERS}}
 scripts/
   build_vault.py           template + answers.json → new vault
-  new_course.py            add a course (folders, notes, colors)
+  new_course.py            add a course (map, folder, Materials, class, prep, colors)
   verify_vault.py          read-only check: links, orphans, placeholders, secrets
-  install-plugins.sh/.ps1  Dataview, Templater, Calendar, Obsidian Git
+  install-plugins.sh/.ps1  Dataview, Templater, Calendar, Obsidian Git (Graph Groups is bundled)
 skills/
   obsidian-vault-builder/  Agent Skill wrapper for this blueprint
   obsidian-chat-capture/   Agent Skill that saves chat takeaways into 11 AI Chats

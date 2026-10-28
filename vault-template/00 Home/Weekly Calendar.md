@@ -1,46 +1,40 @@
 ---
 type: dashboard
-summary: This week's timed classes and events, built from course hubs and event notes.
-cssclasses: [wide]
-tags: [dashboard, calendar]
-week_offset: 0
+summary: "Live weekly calendar: classes with rooms, calls and meetings, exams, university breaks and due dates, drawn from 13 Calendar event notes and dated tasks."
+created: {{TODAY}}
+cssclasses:
+  - weekly-calendar
+  - calendar-dashboard
+tags:
+  - dashboard
+  - calendar
 ---
 # Weekly Calendar
 
-Classes come from course hubs (`type: course`, `status: current`, `days`, `start_time`, `end_time`, `location`, `term_start`, `term_end`). One-off events come from `13 Calendar/Events` (`type: event`, `date`, `start`, `end`, `location`). A `cancels` property on an event (`cancels: "[[ECON 325 - Entrepreneurship]]"`) hides that day's class.
-
 ```dataviewjs
-const offset = Number(dv.current().week_offset ?? 0);
-const start = moment().startOf("isoWeek").add(offset, "weeks");
-const days = [...Array(7)].map((_, i) => start.clone().add(i, "days"));
-const iso = (v) => v && v.toISODate ? v.toISODate() : (v ? String(v).slice(0, 10) : null);
-const rows = days.map(() => []);
-const events = dv.pages('"13 Calendar/Events"').where(p => p.type === "event" && p.date);
-const cancelled = new Set();
-for (const e of events) {
-  if (e.cancels) cancelled.add(iso(e.date) + "|" + (e.cancels.path ?? String(e.cancels)));
-  const i = moment(iso(e.date)).diff(start, "days");
-  if (i >= 0 && i < 7) rows[i].push({ t: String(e.start ?? "all day"), end: String(e.end ?? ""), what: e.file.link, where: e.location ?? "" });
-}
-for (const c of dv.pages('"12 School"').where(p => p.type === "course" && p.status === "current")) {
-  const meet = (c.days ?? []).map(String);
-  days.forEach((d, i) => {
-    const day = d.format("YYYY-MM-DD");
-    const inTerm = (!c.term_start || day >= iso(c.term_start)) && (!c.term_end || day <= iso(c.term_end));
-    const off = (c.no_class ?? []).map(iso).includes(day) || cancelled.has(day + "|" + c.file.path);
-    if (inTerm && !off && meet.includes(d.format("ddd"))) rows[i].push({ t: String(c.start_time ?? ""), end: String(c.end_time ?? ""), what: c.file.link, where: c.location ?? "" });
-  });
-}
-dv.header(3, `Week of ${start.format("MMM D")} – ${start.clone().add(6, "days").format("MMM D, YYYY")}`);
-days.forEach((d, i) => {
-  const list = rows[i].sort((a, b) => a.t.localeCompare(b.t));
-  const today = d.isSame(moment(), "day") ? " (today)" : "";
-  dv.header(4, d.format("dddd, MMM D") + today);
-  if (!list.length) { dv.paragraph("—"); return; }
-  dv.table(["Time", "What", "Where"], list.map(r => [r.end ? `${r.t}–${r.end}` : r.t, r.what, r.where]));
-});
+await dv.view("13 Calendar/System/calendar-view", {mode: "week"})
 ```
 
-Change `week_offset` in this note's properties to look ahead (1) or back (-1).
+## Due this week
+```dataview
+TASK
+FROM "04 Maps" OR "05 Projects" OR "11 AI Chats" OR "13 Calendar"
+WHERE !completed AND due AND due >= date(sow) AND due <= date(eow)
+SORT due ASC
+```
 
-Back to [[Home]] · [[Calendar MOC]]
+> [!info]- How this calendar works
+> **What shows up**
+> - **Classes:** one note per course in `13 Calendar/Classes`. See [[Calendar MOC]] for the list. They repeat weekly and skip university breaks on their own.
+> - **Calls, meetings, exams and other events:** one note each in `13 Calendar/Events`, named `YYYY-MM-DD - Title`.
+> - **Due dates:** any task written `- [ ] task [due:: YYYY-MM-DD]` in a course map, project or AI chat. Check them off in the list above or in their own note.
+> - **Colors:** each course keeps its color from the [[Color Key]]. Gray means no classes; dashed or striped means tentative.
+>
+> **Adding things**
+> - Click **+ Add event** (or double-click an empty time slot), fill in the form and save.
+> - Or just mention it in any AI chat ("I have a call with … Thursday at 3"). Perplexity and Claude add it here and log it in the [[Calendar MOC]], following [[Skill - Calendar Update]].
+> - To move or cancel one class session, add an event that `replaces` that class. To change a room for good, edit the class note.
+>
+> **Today's schedule** also appears at the top of each new daily note, and each weekly review shows its week.
+
+← [[Home]] · [[Calendar MOC]] · [[School MOC]]

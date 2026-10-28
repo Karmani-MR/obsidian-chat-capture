@@ -1,11 +1,11 @@
 ---
 name: obsidian-vault-builder
-description: "Build a new Obsidian vault from the Obsidian AI Vault blueprint: numbered folders, Home-centered colored graph, weekly and monthly calendars, course folders, and an AGENTS.md operating layer. Use for 'build me an Obsidian vault', 'set up Obsidian like this', 'add a course to my vault'. Not for saving chats (use obsidian-chat-capture)."
+description: "Build a new Obsidian vault from the Obsidian AI Vault blueprint (taken from a real student vault): numbered folders, a Home-centered starburst graph, weekly and to-do calendars, color-coded courses, and an AGENTS.md operating layer. Use for 'build me an Obsidian vault', 'set up Obsidian like this', 'add a course to my vault'. Not for saving chats (use obsidian-chat-capture)."
 license: MIT
 compatibility: "Needs Python 3 and a copy of the obsidian-ai-vault repo (scripts/, vault-template/, blueprint/). Works in any Agent Skills host that can run code."
 metadata:
   author: Marc Rainone
-  version: "1.0.0"
+  version: "2.0.0"
 ---
 
 # Obsidian Vault Builder

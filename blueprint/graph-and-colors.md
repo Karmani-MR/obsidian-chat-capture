@@ -2,21 +2,36 @@
 
 ## Target look
 
-A live, circular, force-directed graph with **Home** in the middle. Around it, each hub (AI Chats MOC, Calendar MOC, Top of Mind, AI Agent MOC, Note-taking MOC, School MOC, each area MOC) forms its own starburst. Each course is a separate starburst around its Materials note, in the course color. Past courses are gray all the way down to their smallest file. Tags and unresolved links are hidden.
+A live, circular graph with **Home** pinned in the middle. Around it, each hub forms its own starburst: Calendar, AI Chats, Projects (around Top of Mind), Agent, Knowledge and Archive. Each current course is a separate starburst around its Materials note, with its course map, class note, prep note and events as satellites, all in the course color. Past courses sit together in gray around School Library. Tags and unresolved links are hidden.
 
 ## How the template gets there
 
-1. **Structure does most of the work.** Every note links to exactly one hub, and hubs link to Home. Obsidian's physics then clusters each group on its own.
-2. **Color groups** in `.obsidian/graph.json`, first match wins, so `12 School/Past Courses` (gray) is listed first and each current course is inserted right after it by `new_course.py`. Each course group covers both its folder and its Prep note.
-3. **Forces** taken from the original vault: center 0.494, repel 14.33, link strength 0.88, link distance 286. Tags off, unresolved off, `09 Templates` filtered out.
-4. **File explorer** colors come from `.obsidian/snippets/color-coding.css` (folder title color plus a left bar on each note). Course rules sit between the `COURSES:START/END` markers.
+1. **Graph Groups plugin** (`.obsidian/plugins/graph-groups`, bundled). Its `data.json` defines the center (`00 Home/Home.md`), the branches (folder regex → hub note), how course hubs are found (`12 School/<term>/<course>/<CODE> Materials.md`), the satellites (`04 Maps/{code} MOC.md`, `13 Calendar/Classes/{code} Class.md`, `13 Calendar/Prep/{code} Prep.md`, events whose names contain the code), and the angle for each branch. It also gives each file dot (PDF, slides, Excel) its folder's color. It only reads the folder layout, so it works on any vault built from this template.
+2. **Core graph color groups** in `.obsidian/graph.json`. First match wins, so each course group goes at the top (added by `new_course.py`), then Past Courses (gray), the current term (school blue), then one group per folder.
+3. **Forces** from the original: center 0.494, repel 14.33, link strength 0.88, link distance 286.
+4. **CSS snippet** `color-coding.css`: one `--c-…` variable per folder and per course (between the `COURSE-VARS` markers), a block per course (between the `COURSES` markers), tag colors, and course-note title bars.
 
 ## Palette
 
-See `palette.json` and `vault-template/00 Home/Color Key.md`. Folders: Home gold, Fleeting gray, Literature blue, Permanent green, Maps purple, Projects orange, Daily/Weekly teal, Archive brown, Templates/Attachments slate, AI Chats pink, Calendar cyan. Courses draw from an eight-color course palette (indigo, magenta, amber, emerald, coral, teal, brown, violet).
+| Folder | Color |
+|---|---|
+| 00 Home | Gold `#E0A526` |
+| 01 Fleeting | Yellow `#E8C547` |
+| 02 Literature | Blue `#4A90D9` |
+| 03 Permanent | Green `#3FA66B` |
+| 04 Maps | Purple `#8E6BD1` |
+| 05 Projects | Orange `#E07B39` |
+| 06 Daily, 07 Weekly, 13 Calendar | Teal `#2BA3A3` |
+| 08 Archive | Brown `#8C7B6B` |
+| 09 Templates, 10 Attachments | Slate `#6B7A8F` |
+| 11 AI Chats | Pink `#D6589B` |
+| 12 School, current term | School blue `#4B9CD3` |
+| Past courses | Gray `#8A8F98` |
+
+Courses take colors in order from `palette.json`: Indigo, Magenta, Amber, Emerald, Coral, then Crimson, Sky and Lime.
 
 ## Gotchas
 
-- **Close Obsidian before editing `graph.json`**, or edit through the running app. Obsidian keeps graph settings in memory and will save over a file edit.
-- If folder colors disappear: Settings → Appearance → CSS snippets → enable `color-coding`.
-- Group-aware physics (pinning Home, pulling only within groups) needs a custom plugin and is not included. The hub structure plus the forces above gets close.
+- **Close Obsidian before editing `graph.json`**, or make the change through the running app. Obsidian keeps graph settings in memory and saves them over the file.
+- If colors disappear: Settings → Appearance → CSS snippets → turn on `color-coding`.
+- If the graph isn't circular, check that Graph Groups is enabled under Settings → Community plugins.

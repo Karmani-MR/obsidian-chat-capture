@@ -2,8 +2,7 @@ filters:
   and:
     - file.ext == "md"
     - type.isTruthy()
-    - 'type != "dashboard"'
-    - 'type != "folder-guide"'
+    - type != "dashboard"
     - not:
         - file.inFolder("09 Templates")
 properties:
@@ -23,7 +22,7 @@ views:
     filters:
       and:
         - file.inFolder("01 Fleeting")
-        - 'status == "inbox"'
+        - status == "inbox"
     order:
       - file.name
       - created
@@ -37,7 +36,7 @@ views:
       and:
         - file.inFolder("02 Literature")
     groupBy:
-      property: note.status
+      property: status
       direction: DESC
     order:
       - file.name
@@ -51,7 +50,7 @@ views:
       and:
         - file.inFolder("03 Permanent")
     groupBy:
-      property: note.maturity
+      property: maturity
       direction: ASC
     order:
       - file.name
@@ -62,10 +61,10 @@ views:
     name: All notes by type
     filters:
       and:
-        - 'type != "daily"'
-        - 'type != "weekly"'
+        - type != "daily"
+        - type != "weekly"
     groupBy:
-      property: note.type
+      property: type
       direction: ASC
     order:
       - file.name

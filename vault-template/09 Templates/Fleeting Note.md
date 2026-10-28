@@ -2,7 +2,7 @@
 type: fleeting
 status: inbox
 created: <% tp.date.now("YYYY-MM-DDTHH:mm") %>
-captured: "[[<% tp.date.now("YYYY-MM-DD") %>]]"
+captured: "[[06 Daily/<% tp.date.now("YYYY/MM/YYYY-MM-DD") %>|<% tp.date.now("YYYY-MM-DD") %>]]"
 tags:
   - fleeting
 ---

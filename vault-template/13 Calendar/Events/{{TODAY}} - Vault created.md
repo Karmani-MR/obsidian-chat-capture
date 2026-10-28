@@ -1,11 +1,18 @@
 ---
 type: event
+kind: personal
 date: {{TODAY}}
-start: "all day"
-location: ""
-summary: Example event note; copy this shape for calls, meetings and exams.
-tags: [event]
+status: confirmed
+source: "[[{{TODAY}} - Vault Built From Blueprint]]"
+created: {{TODAY}}
+tags:
+  - event
 ---
-# Vault created
 
-Example event. Delete or keep. Linked from [[Calendar MOC]].
+# Vault created
+← [[Weekly Calendar]] · [[Calendar MOC]]
+
+**When:** {{TODAY}} (all day)
+**Source:** [[{{TODAY}} - Vault Built From Blueprint]]
+
+Example event note. Agents create these with `13 Calendar/System/add_event.py` ([[Skill - Calendar Update]]). Keep or delete it.

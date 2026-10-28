@@ -8,12 +8,15 @@ Usage: python3 scripts/verify_vault.py "<vault>" [--json]
 import json, pathlib, re, sys
 
 REQUIRED = ["00 Home", "01 Fleeting/AI Drafts", "02 Literature", "03 Permanent", "04 Maps", "05 Projects", "06 Daily",
-            "07 Weekly", "08 Archive", "09 Templates", "10 Attachments", "11 AI Chats", "13 Calendar/Events", "13 Calendar/Prep"]
+            "07 Weekly", "08 Archive", "09 Templates", "10 Attachments", "11 AI Chats", "13 Calendar/Classes", "13 Calendar/Events",
+            "13 Calendar/Prep", "13 Calendar/System/calendar-view", "13 Calendar/System/task-calendar"]
 CORE = ["AGENTS.md", "00 Home/Home.md", "00 Home/AI Context.md", "00 Home/Top of Mind.md", "00 Home/Weekly Calendar.md",
-        "00 Home/Monthly Calendar.md", "04 Maps/AI Chats MOC.md", "04 Maps/Calendar MOC.md", "04 Maps/AI Agent MOC.md"]
+        "00 Home/To-Do Calendar.md", "13 Calendar/To-Do.md", "13 Calendar/System/add_event.py",
+        ".obsidian/plugins/graph-groups/main.js", "04 Maps/AI Chats MOC.md", "04 Maps/Calendar MOC.md", "04 Maps/AI Agent MOC.md"]
 LINK = re.compile(r"(?<!!)\[\[([^\]|#^]+)(?:[#^][^\]|]*)?(?:\|[^\]]*)?\]\]|!\[\[([^\]|#^]+)")
 SECRET = re.compile(r"(sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|xox[bap]-[A-Za-z0-9-]{10,})")
 SKIP_ORPHAN = {"Home", "AGENTS", "CLAUDE", "README"}
+SKIP_ORPHAN_DIRS = {"09 Templates", "06 Daily", "07 Weekly"}
 
 def main():
     vault = pathlib.Path(sys.argv[1]).expanduser()
@@ -26,7 +29,7 @@ def main():
         try: json.loads(j.read_text())
         except Exception as e: issues["json"].append(f"{j.relative_to(vault)}: {e}")
 
-    files = [p for p in vault.rglob("*") if p.is_file() and ".obsidian" not in p.parts and ".git" not in p.parts]
+    files = [p for p in vault.rglob("*") if p.is_file() and not ({".obsidian", ".git", ".claude", "System"} & set(p.parts))]
     md = [p for p in files if p.suffix == ".md"]
     names = {}
     for p in files:
@@ -44,7 +47,7 @@ def main():
         if re.search(r"\{\{[A-Z_0-9]+\}\}", t): issues["placeholders"].append(rel)
         if SECRET.search(t): issues["secrets"].append(rel)
         body = re.sub(r"```.*?```|`[^`]*`", "", t, flags=re.S)
-        targets = [ (m.group(1) or m.group(2)).strip() for m in LINK.finditer(body)]
+        targets = [(m.group(1) or m.group(2)).strip().rstrip("\\").strip() for m in LINK.finditer(body)]
         maps_linked = False
         for tg in targets:
             if not tg: continue
@@ -52,10 +55,11 @@ def main():
             if not hit: issues["broken_links"].append(f"{rel} → [[{tg}]]"); continue
             if hit != p and hit in inbound: inbound[hit] += 1
             if "04 Maps" in hit.parts: maps_linked = True
-        if re.search(r"(?m)^\s*-\s*ai-assisted\s*$|tags:\s*\[[^\]]*ai-assisted", t) and not maps_linked and "04 Maps" not in p.parts:
+        fm = re.match(r"^---\n(.*?)\n---\n", t, re.S)
+        if fm and re.search(r"(?m)^\s*-\s*ai-assisted\s*$|tags:\s*\[[^\]]*ai-assisted", fm.group(1)) and not maps_linked and "04 Maps" not in p.parts:
             issues["ai_unmapped"].append(rel)
     for p, n in inbound.items():
-        if n == 0 and p.stem not in SKIP_ORPHAN and "09 Templates" not in p.parts:
+        if n == 0 and p.stem not in SKIP_ORPHAN and not (SKIP_ORPHAN_DIRS & set(p.parts)):
             issues["orphans"].append(p.relative_to(vault).as_posix())
 
     total = sum(len(v) for v in issues.values())

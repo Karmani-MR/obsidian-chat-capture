@@ -1,66 +1,70 @@
 # Vault spec
 
-The design this repo reproduces. `vault-template/` implements it; read this to understand why it is shaped this way or to rebuild it by hand.
+The design this repo reproduces, taken from a real vault used every day for school, investing, career and AI work. `vault-template/` holds that vault's actual system files with personal content removed. Read this to understand why it's shaped this way, or to rebuild it by hand.
 
 ## Principles
 
-1. **One center.** Everything links back to `00 Home/Home.md`, directly or through a hub. Nothing is an orphan.
-2. **Hubs, not deep folders.** Each area has one hub note (a map, a course Materials note, Calendar MOC, Top of Mind). Notes link to their hub; hubs link to Home. This is what makes the graph form clean starbursts around Home.
+1. **One center.** Everything links back to `00 Home/Home.md`, directly or through a hub. Nothing floats loose.
+2. **Hubs, not deep folders.** Each area has one hub note: a map in `04 Maps`, a course's Materials note, Calendar MOC, Top of Mind. Notes link to their hub and hubs link to Home. The Graph Groups plugin turns that into a circular graph with Home in the middle and one colored starburst per hub and per course.
 3. **Numbered folders by note type**, not by topic. Topics live in maps.
-4. **AI is a guest with rules.** A root `AGENTS.md` says what agents read first, where they may write, and how to name and link notes. AI-made notes are tagged `ai-assisted` until reviewed.
-5. **Dates live in tasks.** Every dated item is a checkbox with `[due:: YYYY-MM-DD]`, so calendars are queries, not hand-kept lists.
-6. **Nothing is lost.** Append instead of overwrite, `Older versions` folders instead of deletion, local Git snapshots for undo.
+4. **AI is a guest with rules.** `AGENTS.md` sets the read order, a permissions table, how AI work is marked, batch-edit snapshots, note conventions, the skills and the calendar rules. Anything an agent writes is tagged `ai-assisted` until reviewed.
+5. **Dates live in notes.** Classes, events and tasks are notes and task lines with properties. The calendars are views over them, never lists kept by hand.
+6. **Nothing is lost.** Append, don't overwrite. Superseded files go in `Older versions`. Obsidian Git takes local snapshots every 30 minutes.
 
 ## Folders
 
 | Folder | Purpose | Hub |
 |---|---|---|
-| `00 Home` | Home, Weekly/Monthly Calendar, AI Context, Top of Mind, Color Key, `Agent/` | Home |
-| `01 Fleeting` | Quick captures (new notes land here); `AI Drafts/` for agent proposals | Note-taking MOC |
-| `02 Literature` | Notes on sources, in your own words | Note-taking MOC |
-| `03 Permanent` | One idea per note, titled as a claim | Note-taking MOC / area MOCs |
-| `04 Maps` | MOCs: AI Chats, Calendar, AI Agent, Note-taking, School, one per life area | Home |
-| `05 Projects` | Active projects (outcome, next actions, log) | Top of Mind |
-| `06 Daily` | `YYYY/MM/YYYY-MM-DD` daily notes | Calendar MOC |
-| `07 Weekly` | `GGGG-[W]WW` weekly reviews | Calendar MOC |
-| `08 Archive` | Finished material | Home |
-| `09 Templates` | Templater templates (excluded from search and graph) | — |
-| `10 Attachments` | Loose files not owned by a course or project | — |
-| `11 AI Chats` | `YYYY-MM-DD - Topic` takeaways from AI chats | AI Chats MOC |
-| `12 School/<Term>/<CODE - Name>/` | Current courses | the course's Materials note |
-| `12 School/Past Courses/` | Finished courses, moved whole, all gray | School MOC |
-| `13 Calendar/Events` · `Prep` · `To-Do.md` · `System` | Event notes, per-course prep, other to-dos, calendar scripts/config | Calendar MOC |
+| `00 Home` | Home, Weekly Calendar, To-Do Calendar, AI Context, About me, Top of Mind, Goals, Principles, Writing Style, Color Key, Plugin Setup Checklist, `Agent/` (USER, Agent Memory, `Skills/`) | Home |
+| `01 Fleeting` | Inbox; new notes land here. `AI Drafts/` holds agent proposals and reports | Note-taking MOC |
+| `02 Literature` | Notes on sources, lectures and meetings (`Author - Title`, `CODE - Lecture N - Topic`) | Note-taking MOC |
+| `03 Permanent` | Your own ideas, titled as claims | Note-taking MOC / area maps |
+| `04 Maps` | One map per life area, one **course map** (`CODE MOC`) per course, plus AI Chats, Calendar, AI Agent, Note-taking and School MOCs | Home |
+| `05 Projects` | Work with an outcome; titles start with a verb | Top of Mind |
+| `06 Daily` · `07 Weekly` | `YYYY/MM/YYYY-MM-DD` daily notes and `GGGG-[W]WW` weekly reviews | Calendar MOC |
+| `08 Archive` | Finished projects and old reference material | Home |
+| `09 Templates` | Templater templates, including `Course` (hidden from search and graph) | — |
+| `10 Attachments` | Images and files pasted into notes | — |
+| `11 AI Chats` | `YYYY-MM-DD - Topic` chat takeaways, indexed in AI Chats MOC | AI Chats MOC |
+| `12 School/<Term>/<CODE - Name>/` | Every file for a current course, in eight numbered subfolders, plus `CODE Materials.md` | the Materials note |
+| `12 School/Past Courses/` | Finished courses, moved whole, all gray | School Library |
+| `13 Calendar/` | `Classes/` (one weekly-repeating note per course), `Events/` (`YYYY-MM-DD - Title`), `Prep/` (one per course), `To-Do.md`, and `System/` (calendar code) | Calendar MOC |
 
-## Courses
+## A course
 
-Each course folder has a hub (`CODE - Name.md`), a Materials note (`CODE Materials.md`) and eight subfolders: `01 Syllabus & Admin`, `02 Lecture Slides`, `03 Readings`, `04 Assignments`, `05 Cases & Projects`, `06 Exams & Review`, `07 Notes`, `08 Resources`. Every file in the folder is linked from the Materials note, so each course becomes its own starburst. Pre-class prep lives in `13 Calendar/Prep/CODE Prep.md`. Course-owned notes elsewhere (prep, exam events) carry the course color.
+Adding a course creates five things, all in the same color:
 
-The hub's properties drive the Weekly Calendar: `status: current`, `days: [Tue, Thu]`, `start_time: "11:00"`, `end_time: "12:15"`, `location`, `term_start`, `term_end`, optional `no_class: [dates]` for breaks.
+- `04 Maps/CODE MOC.md`: the course hub, with instructor, meeting time, grading and `## Upcoming deadlines` (graded work as `[due::]` tasks).
+- `12 School/<Term>/CODE - Name/` with `01 Syllabus & Schedule`, `02 Lecture Slides`, `03 Readings & Cases`, `04 Assignments`, `05 Models & Data`, `06 Exams & Review`, `07 My Work`, `08 Other`.
+- `CODE Materials.md` in that folder. It links every file, which makes it the center of the course's starburst.
+- `13 Calendar/Classes/CODE Class.md`: `kind: class`, `repeat: weekly`, `days`, `date` and `end-date`, `start-time`, `end-time`, `location`, and `skip` for single cancelled sessions.
+- `13 Calendar/Prep/CODE Prep.md`: readings and prep under `## Before class`.
 
-Retiring a course: move its folder inside Obsidian to `12 School/Past Courses/` (so links update), set `status: past`, remove its color. See `personalize.md`.
+It also adds a row to School MOC, School Library, Calendar MOC and Color Key, a graph color group, and a CSS block. `scripts/new_course.py` does all of this.
+
+**When a course ends:** move its folder into `12 School/Past Courses` from inside Obsidian (so links update), set the map to `status: past` with the tag `course/past`, and delete its CSS block. It turns gray.
 
 ## Calendar
 
-- **Weekly Calendar** (DataviewJS): recurring classes from course hubs plus one-off events from `13 Calendar/Events` (`type: event`, `date`, `start`, `end`, `location`). An event with `cancels: "[[Course hub]]"` hides that day's class.
-- **Monthly Calendar** (DataviewJS): a month grid of every unchecked task with `[due::]` or `[scheduled::]`, plus Overdue and Next 7 days lists you can check off in place.
-- **Routing rules:** course deadlines → course hub; readings → Prep note; meetings/calls/exams → event note + Calendar MOC log line; anything else → `13 Calendar/To-Do.md`.
+- **Weekly Calendar** (`dv.view("13 Calendar/System/calendar-view")`): a time grid of classes, calls, meetings, exams and breaks, with due dates along the top. It has a `+ Add event` form, and you can double-click a slot to add one. Event kinds are class, exam, call, meeting, interview, appointment, club, work, personal, travel, break, academic and other. Breaks (`no-class: true`) hide classes automatically. An event with `replaces: "[[CODE Class]]"` moves or cancels one session.
+- **To-Do Calendar** (`dv.view("13 Calendar/System/task-calendar")`): a month grid of every dated task, sorted into assignments, exams, prep and to-dos. It has filters, a day-by-day list, check-off in place and `+ Add to-do`. Optional fields: `[scheduled:: date]`, `[kind:: …]`, `[course:: CODE]`, `[time:: HH:MM]`.
+- **add_event.py**: the command-line tool agents use to add, update, cancel or list events. It writes event notes and appends one line to the Calendar MOC event log. If the shell can't write, it falls back to the Local REST API.
+- **Where dates go:** graded deadlines go in the course map, readings in the Prep note, timed commitments become event notes, and anything else goes in the chat note or `To-Do.md`.
 
 ## Agent layer
 
-- `AGENTS.md` (root) — read order, write permissions, naming, task format, never-save list. `CLAUDE.md` contains `@AGENTS.md` so Claude Code loads it.
-- `00 Home/AI Context.md` — who the user is and where things live.
-- `00 Home/Top of Mind.md` — this week's priorities; agents may edit.
-- `00 Home/Agent/` — `USER.md`, append-only dated `Agent Memory.md`, draft `Goals`, `Principles`, `Writing Style`.
-- `00 Home/Agent/Skills/` — one note per repeatable job: Today's Focus, Weekly Review, Process Notes, Ingest, Vault Health, Write Like Me, Calendar Capture, Add Course, Retire Course. Any AI can follow them; Claude Code users can point `.claude/skills/` at them.
-- Free-write zones: `01 Fleeting/AI Drafts`, `11 AI Chats`, today's daily note, Top of Mind. Everywhere else: append or propose.
+- `AGENTS.md` (root, the real operating manual), and `CLAUDE.md` (`@AGENTS.md`).
+- Context: `00 Home/AI Context.md`, `Agent/USER.md`, `Top of Mind.md`, append-only `Agent/Agent Memory.md`, and `Goals`, `Principles` and `Writing Style`.
+- Skills: the notes in `00 Home/Agent/Skills/` are the canonical instructions: Todays Focus, Weekly Review, Process Notes, Ingest, Vault Health, Write Like Me and Calendar Update. `.claude/skills/<name>/SKILL.md` are small pointers, so Claude Code gets `/todays-focus` and the rest. `vault-health/scripts/vault_health.py` does the checking. Each skill note ends with a `## Retro log`.
+- Free-write zones are `01 Fleeting/AI Drafts`, `11 AI Chats`, `13 Calendar` (through the calendar skill), today's daily note and Top of Mind. Everywhere else, agents append or propose.
 
 ## Properties
 
-Every note: `type`, `summary` (one sentence, helps AI retrieval), `tags`. Common types: `dashboard`, `context`, `skill`, `map`, `fleeting`, `literature`, `permanent`, `project`, `daily`, `weekly`, `ai-chat`, `event`, `course`, `materials`, `prep`, `lecture`.
+Every note has `type`, `tags` and `created`. Hubs, projects, literature and permanent notes also have a one-sentence `summary`. The types are dashboard, profile, ai-context, guide, fleeting, literature, permanent, map, project, daily, weekly, ai-chat, materials, agent-policy, agent-skill, agent-memory, event, task-list and folder-guide.
 
 ## Plugins and settings
 
-- Core: Daily notes (`06 Daily`, `YYYY/MM/YYYY-MM-DD`), Bases, Properties, Graph, Canvas, Bookmarks.
-- Community: Dataview (JS enabled), Templater (folder templates for 01–07, 11 and `13 Calendar/Events`), Calendar (Monday start, weekly notes in `07 Weekly`), Obsidian Git (30-minute local commits, push disabled).
-- `alwaysUpdateLinks: true`; Office lock files (`~$…`) and `09 Templates` excluded.
-- CSS snippet `color-coding` colors folders and adds a color bar to each note in the file explorer.
+- **Community plugins:** Dataview (JS on), Templater (folder templates for 01–07), Calendar (Monday start, weekly notes in `07 Weekly`), Obsidian Git (30-minute local commits, push off) and **Graph Groups**, a custom plugin bundled in the template. Graph Groups colors file dots by folder, pins Home in the center and lays each hub and course out as its own starburst.
+- **Optional:** Local REST API, for AI apps without file access.
+- **Settings:** new notes go to `01 Fleeting`, attachments to `10 Attachments`, links update automatically, and `09 Templates` and Office `~$` lock files are excluded.
+- **CSS snippet `color-coding`:** folder colors, a colored rail on each note, tag colors, and course title bars set by `cssclasses: [course-note, course-<code>]`.

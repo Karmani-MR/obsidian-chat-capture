@@ -2,18 +2,20 @@
 type: ai-chat
 created: {{TODAY}}
 source: blueprint
-summary: Record of this vault being built from the obsidian-ai-vault blueprint.
-tags: [ai-chat, ai-assisted]
-related: ["[[AI Agent MOC]]"]
+summary: "Record of this vault being built from the Obsidian AI Vault blueprint, with first steps."
+tags:
+  - ai-chat
+  - ai-assisted
 ---
 # Vault Built From Blueprint
 
 ## Takeaways
-- Folder layout, colors, calendars and agent layer created from the blueprint.
+- Folders, colors, calendars, course structure and the agent layer were created from the blueprint.
+- Agents start at [[AGENTS]]; people start at [[Home]] and [[README]].
 
 ## Next steps
-- [ ] Rewrite [[Goals]], [[Principles]] and [[Writing Style]] in your own words
+- [ ] Finish [[Plugin Setup Checklist]] [due:: {{TODAY}}]
 - [ ] Review notes tagged `ai-assisted` in [[AI Agent MOC]]
 
 ## Links
-- Related: [[AI Agent MOC]] · [[AI Chats MOC]]
+- [[AI Chats MOC]] · [[AI Agent MOC]] · [[Calendar MOC]]

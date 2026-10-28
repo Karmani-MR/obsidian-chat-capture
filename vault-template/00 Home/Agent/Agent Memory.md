@@ -1,13 +1,20 @@
 ---
-type: context
-summary: Append-only, dated log of durable preferences and decisions agents should remember.
-tags: [context, agent]
+type: agent-memory
+summary: "Dated preferences, decisions and lessons agents have learned about {{USER_NAME}}. Append only; newer entries win."
+created: {{TODAY}}
+tags:
+  - agent-memory
+  - agent
 ---
 # Agent Memory
 
-Append only. Newest at the bottom. One dated heading per day.
+Append one dated line per lesson, with its source. Newer entries win. Never delete {{USER_NAME}}'s lines.
 
-### {{TODAY}}
-- Vault built from the obsidian-ai-vault blueprint.
+## Preferences
+- {{TODAY}} · Vault built from the Obsidian AI Vault blueprint ([[{{TODAY}} - Vault Built From Blueprint]]).
 
-Links: [[USER]] · [[AI Agent MOC]]
+## Decisions
+
+## Lessons
+
+← [[AI Agent MOC]] · [[USER]]

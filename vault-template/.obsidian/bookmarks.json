@@ -15,20 +15,14 @@
     {
       "type": "file",
       "ctime": 1790000000002,
-      "path": "00 Home/Monthly Calendar.md",
-      "title": "Monthly Calendar"
+      "path": "00 Home/To-Do Calendar.md",
+      "title": "To-Do Calendar"
     },
     {
       "type": "file",
       "ctime": 1790000000003,
       "path": "00 Home/Top of Mind.md",
       "title": "Top of Mind"
-    },
-    {
-      "type": "folder",
-      "ctime": 1790000000004,
-      "path": "01 Fleeting",
-      "title": "Inbox"
     }
   ]
 }

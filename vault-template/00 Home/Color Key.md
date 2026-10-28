@@ -1,30 +1,35 @@
 ---
-type: dashboard
-summary: Legend for folder, graph and course colors.
-tags: [dashboard]
+type: guide
+summary: "Legend for every color in the file explorer, graph and tags: one per folder, one per active course, gray for past courses."
+created: {{TODAY}}
+tags:
+  - guide
 ---
 # Color Key
 
-Colors appear in three places: the file explorer (CSS snippet `color-coding`), graph view color groups, and type tags.
+Colors come from the CSS snippet `color-coding` (file explorer, tags, course notes), the graph's color groups, and the Graph Groups plugin (file dots and starburst layout). If colors vanish: Settings → Appearance → CSS snippets → turn on `color-coding`.
 
-| Color | Hex | Folder |
+## Folders
+| | Folder | Color |
 |---|---|---|
-| Gold | #E6B422 | 00 Home |
-| Gray | #9AA0A6 | 01 Fleeting |
-| Blue | #4A90E2 | 02 Literature |
-| Green | #34A853 | 03 Permanent |
-| Purple | #8E6CEF | 04 Maps |
-| Orange | #F5A623 | 05 Projects |
-| Teal | #20B2AA | 06 Daily, 07 Weekly |
-| Brown | #A0522D | 08 Archive |
-| Slate | #708090 | 09 Templates, 10 Attachments |
-| Pink | #E91E8C | 11 AI Chats |
-| Cyan | #00BCD4 | 13 Calendar |
-| Gray | #7F7F7F | 12 School/Past Courses (whole course, every file) |
+| <span style="color:#E0A526">■</span> | `00 Home` and root notes | Gold `#E0A526` |
+| <span style="color:#E8C547">■</span> | `01 Fleeting` | Yellow `#E8C547` (gray is reserved for past courses) |
+| <span style="color:#4A90D9">■</span> | `02 Literature` | Blue `#4A90D9` |
+| <span style="color:#3FA66B">■</span> | `03 Permanent` | Green `#3FA66B` |
+| <span style="color:#8E6BD1">■</span> | `04 Maps` | Purple `#8E6BD1` |
+| <span style="color:#E07B39">■</span> | `05 Projects` | Orange `#E07B39` |
+| <span style="color:#2BA3A3">■</span> | `06 Daily`, `07 Weekly`, `13 Calendar` | Teal `#2BA3A3` |
+| <span style="color:#8C7B6B">■</span> | `08 Archive` | Brown `#8C7B6B` |
+| <span style="color:#6B7A8F">■</span> | `09 Templates`, `10 Attachments` | Slate `#6B7A8F` |
+| <span style="color:#D6589B">■</span> | `11 AI Chats` | Pink `#D6589B` |
+| <span style="color:#4B9CD3">■</span> | `12 School`, current term, [[School Library]] | School blue `#4B9CD3` |
+| <span style="color:#8A8F98">■</span> | `12 School/Past Courses` | Gray `#8A8F98` |
 
-## Current courses <!-- if:school -->
+## Active courses <!-- if:school -->
+Each active course has one color across its folder, course map, class, prep note and events. <!-- if:school -->
+| | Course | Color | <!-- if:school -->
+|---|---|---| <!-- if:school -->
 {{COURSE_COLOR_ROWS}}
+When a course ends it moves to Past Courses and turns gray ([[School Library]] → "When a course ends"). <!-- if:school -->
 
-If colors vanish after a restart: Settings → Appearance → CSS snippets → turn on `color-coding`.
-
-Back to [[Home]]
+← [[Home]] · [[README]]

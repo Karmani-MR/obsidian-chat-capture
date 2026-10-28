@@ -18,6 +18,7 @@ const author = (await tp.system.prompt("Author(s) — comma separated (optional)
 -%>
 ---
 type: literature
+summary: 
 source-type: <% sourceType %>
 author:
 <%* for (const a of author.split(",").map(s => s.trim()).filter(Boolean)) { -%>

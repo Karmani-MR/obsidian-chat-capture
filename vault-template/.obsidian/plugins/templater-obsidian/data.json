@@ -36,14 +36,6 @@
     {
       "folder": "07 Weekly",
       "template": "09 Templates/Weekly Review.md"
-    },
-    {
-      "folder": "11 AI Chats",
-      "template": "09 Templates/AI Chat.md"
-    },
-    {
-      "folder": "13 Calendar/Events",
-      "template": "09 Templates/Event.md"
     }
   ],
   "file_templates": [],
@@ -62,12 +54,7 @@
     },
     {
       "folder": "10 Attachments"
-    },
-    {
-      "folder": "12 School"
-    },
-    {
-      "folder": "01 Fleeting/AI Drafts"
     }
-  ]
+  ],
+  "trigger_on_file_creation": false
 }

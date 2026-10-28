@@ -4,25 +4,31 @@
 ```bash
 python3 scripts/new_course.py "<vault>" --code "ECON 325" --name "Entrepreneurship" --term "Fall 2026" \
   --days Tue Thu --start 11:00 --end 12:15 --location "Fetzer 109" --instructor "Prof. Name" \
-  --term-start 2026-08-17 --term-end 2026-12-11 --color "#C2185B"
+  --term-start 2026-08-17 --term-end 2026-12-02 --color "#B83DBA" --color-name Magenta
 ```
-Close Obsidian first (it rewrites `graph.json` from memory). By hand: copy the three `Course …` templates from `09 Templates`, create the eight subfolders, add a School MOC row, a graph color group and a CSS block.
+Close Obsidian first, because it rewrites `graph.json` from memory. To do it by hand instead, follow the checklist at the bottom of `09 Templates/Course.md`.
 
 ## File course material
-Put the file in the right numbered subfolder, then add a link line to the course Materials note under that subfolder's heading. Link non-Markdown files with the extension: `[[Lecture 3.pptx]]`. Old versions go in an `Older versions` subfolder.
+Save the file in the matching numbered subfolder, then add a line under that folder's heading in the course's Materials note, for example `- [[Lecture 3.pptx|Lecture 3]] · PowerPoint`. Keep the newest version at the top and move older drafts into an `Older versions` subfolder.
+
+## Add a break, exam or class change
+```bash
+python3 "13 Calendar/System/add_event.py" add --title "Fall Break" --date 2026-10-15 --end-date 2026-10-16 --kind break --no-class
+python3 "13 Calendar/System/add_event.py" add --title "ECON 325 on Zoom" --date 2026-10-13 --start 11:00 --end 12:15 --kind class --replaces "ECON 325 Class"
+```
+Run with `--help` to see every option. Or just tell an AI with vault access; it follows `Skill - Calendar Update`.
 
 ## Retire a course
-1. Check nothing in the folder is open in Word or PowerPoint (`lsof +D "<folder>"` on Mac).
-2. Move the folder inside Obsidian (drag in the file explorer) to `12 School/Past Courses/`, so every link updates.
-3. Set the hub's `status: past`.
-4. Delete the course's color group in Graph settings and its block in `color-coding.css`. The Past Courses gray group then covers it.
+See "When a course ends" in `12 School/School Library.md`. In short: move the folder inside Obsidian to `Past Courses`, set the map to `status: past` and tag it `course/past`, and delete its CSS block.
 
 ## Add a life area
-Create `04 Maps/<Area> MOC.md` from the Map of Content template, add `- [[<Area> MOC]]` to Home's Maps list and AI Context, and a `## <Area>` section in AI Chats MOC.
+Create `04 Maps/<Area> MOC.md` from the Map of Content template, then link it from the Areas line on Home, from AI Context, and from a `## <Area>` section in AI Chats MOC. You can add a tag color under `/* Area tags */` in `color-coding.css`.
 
 ## Change colors
-Edit `Color Key.md`, the matching graph color group, and the CSS rule. Keep the three in sync.
+Edit the variable in `color-coding.css`, the matching graph color group, and the Color Key row. Keep all three in sync.
 
 ## Connect AI apps
-- Claude Code: run `claude` inside the vault; it reads `CLAUDE.md` → `AGENTS.md`.
-- Any MCP app: install the Local REST API plugin and follow `skills/obsidian-chat-capture/references/setup.md`.
+- **Claude Code:** run `claude` inside the vault. It reads `CLAUDE.md` → `AGENTS.md` and gets `/todays-focus`, `/weekly-review` and the other skills from `.claude/skills/`.
+- **Apps with file access** (Codex, Cursor, Perplexity on your computer): point them at `AGENTS.md`.
+- **MCP apps without file access:** install the Local REST API plugin and follow `skills/obsidian-chat-capture/references/setup.md`.
+- **Optional:** install [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills) into `.claude/skills/` for Obsidian syntax help.

@@ -1,5 +1,6 @@
 ---
 type: map
+summary: 
 created: <% tp.date.now("YYYY-MM-DDTHH:mm") %>
 tags:
   - map

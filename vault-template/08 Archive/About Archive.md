@@ -1,10 +1,12 @@
 ---
 type: folder-guide
-summary: Where finished or retired notes go.
-tags: [map]
+summary: "Finished projects and old reference material."
+created: {{TODAY}}
+tags:
+  - folder-guide
 ---
-# About Archive
+# Archive
 
-Move finished projects and old material here. Retired courses go to `12 School/Past Courses` instead.
+Move finished projects and old reference notes here. Finished courses go to `12 School/Past Courses` instead.
 
-Back to [[Home]]
+← [[Home]]

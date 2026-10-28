@@ -1,10 +1,12 @@
 ---
 type: folder-guide
-summary: Finished courses keep every file and link here, colored gray.
-tags: [school]
+summary: "Finished courses move here whole and turn gray in the explorer and the graph."
+created: {{TODAY}}
+tags:
+  - folder-guide
 ---
 # Past Courses
 
-Finished courses move here whole (folder, hub, Materials note). Everything inside is gray in the graph. See [[Skill - Retire Course]].
+Finished courses move here whole (folder, Materials note and files). Everything inside is gray. Steps: [[School Library]] → "When a course ends".
 
-Back to [[School MOC]]
+← [[School Library]]

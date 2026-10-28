@@ -1,21 +1,33 @@
 ---
 type: map
-summary: Hub for fleeting, literature and permanent notes.
-tags: [map]
+summary: "Example map on note-taking method that links the atomic-notes and linking-beats-filing permanent notes and explains when to start a map of content."
+created: {{TODAY}}
+tags:
+  - map
+  - example
 ---
 # Note-taking MOC
 
-## Fleeting
+## Overview
+A map of content (MOC) is a hub note that links related ideas on one topic. Start a map when a topic has roughly five or more permanent notes.
+
+## Core notes
+- [[Atomic notes make ideas reusable]] — why each note holds one idea
+- [[Linking beats filing]] — why topics live in links, not folders
+
+## Examples
+- [[Fleeting notes should expire]] · [[Ahrens - How to Take Smart Notes]]
+
+## Open questions
+- When should a map be split into smaller maps?
+
+## Notes that link here
 ```dataview
-LIST FROM "01 Fleeting" WHERE type = "fleeting"
-```
-## Literature
-```dataview
-LIST FROM "02 Literature"
-```
-## Permanent
-```dataview
-LIST FROM "03 Permanent"
+TABLE type AS "Type", maturity AS "Maturity"
+FROM "02 Literature" OR "03 Permanent"
+WHERE (type = "literature" OR type = "permanent")
+  AND (contains(file.outlinks, this.file.link) OR contains(maps, this.file.link))
+SORT file.mtime DESC
 ```
 
-Back to [[Home]]
+← [[Home]]

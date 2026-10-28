@@ -1,4 +1,5 @@
 {
+  "showInlineTitle": false,
   "newFileLocation": "folder",
   "newFileFolderPath": "01 Fleeting",
   "attachmentFolderPath": "10 Attachments",
@@ -9,5 +10,6 @@
   "userIgnoreFilters": [
     "09 Templates/",
     "/(^|\\/)~\\$/"
-  ]
+  ],
+  "showUnsupportedFiles": true
 }

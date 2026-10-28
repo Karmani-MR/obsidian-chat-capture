@@ -1,6 +1,6 @@
 # Instructions for the AI building a vault from this repo
 
-You are helping someone build an Obsidian vault organized like the one this repo was modeled on. Follow these steps in order. Do not skip the interview or the verification.
+You are helping someone build an Obsidian vault organized like the real vault this repo was taken from. Follow these steps in order. Do not skip the interview or the verification.
 
 ## 0. Check what you can do
 
@@ -22,7 +22,7 @@ Ask the questions in [`blueprint/interview.md`](blueprint/interview.md), a few a
 python3 scripts/build_vault.py --answers answers.json --dest "~/Documents/<Vault Name>"
 ```
 
-This copies [`vault-template/`](vault-template/), fills in names and dates, creates one map per life area, and for students creates each course (folder, eight numbered subfolders, hub, Materials note, Prep note, School MOC row, color). Non-students get no `12 School` folder.
+This copies [`vault-template/`](vault-template/), fills in names, dates and the term, creates one map per life area, and for students creates each course: a course map, a folder with eight numbered subfolders, a Materials note, a class note and a prep note, plus table rows and colors. Non-students get no `12 School` folder.
 
 Add courses later with `scripts/new_course.py` (run `--help`).
 
@@ -33,7 +33,7 @@ bash scripts/install-plugins.sh "<dest>"          # macOS / Linux
 powershell -File scripts/install-plugins.ps1 -Vault "<dest>"   # Windows
 ```
 
-Installs Dataview, Templater, Calendar and Obsidian Git. Then the user opens the folder in Obsidian (Open folder as vault), clicks "Trust author and enable plugins", and under Settings → Templater turns on "Trigger Templater on new file creation". If you can drive Obsidian's command line, you may do those steps for them.
+Installs Dataview, Templater, Calendar and Obsidian Git. Graph Groups is already bundled in the template. Then the user opens the folder in Obsidian (Open folder as vault), clicks "Trust author and enable plugins", and under Settings → Templater turns on "Trigger Templater on new file creation". If you can drive Obsidian's command line, you may do those steps for them.
 
 Optional: install the Local REST API plugin and the [`obsidian-chat-capture`](skills/obsidian-chat-capture/) skill so AI chats save into `11 AI Chats`.
 
@@ -43,11 +43,11 @@ Optional: install the Local REST API plugin and the [`obsidian-chat-capture`](sk
 python3 scripts/verify_vault.py "<dest>"
 ```
 
-Must print `PASS`: required folders exist, configs parse, links resolve, no orphan notes, no leftover placeholders, no secrets. If you can open Obsidian, also check that Home, Weekly Calendar and Monthly Calendar render, and that the graph is colored.
+Must print `PASS`: required folders exist, configs parse, links resolve, no orphan notes, no leftover placeholders, no secrets. If you can open Obsidian, also check that Home, Weekly Calendar and To-Do Calendar render, and that the graph is circular and colored. Test the calendar tool with `python3 "13 Calendar/System/add_event.py" list --from <today> --to <today+7>`.
 
 ## 5. Report
 
-Tell the user: where the vault is, what to open first (Home), the three plugin steps if you couldn't do them, and that `Goals`, `Principles` and `Writing Style` in `00 Home/Agent/` are drafts for them to rewrite.
+Tell the user where the vault is and to open Home first. List the plugin steps if you couldn't do them, and point out that `About me`, `Goals`, `Principles` and `Writing Style` in `00 Home` are drafts for them to rewrite. Add school breaks and exams as events (`blueprint/personalize.md`).
 
 ## Existing vault
 
